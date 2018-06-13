@@ -1,0 +1,77 @@
+RÉSEAUX D'OPÉRATEURS - TP1 - 14/02/18
+_____________________________________
+
+
+---------
+TOPOLOGIE
+---------
+
+ * Sur chaque interface (sur AS)
+
+#int gx/x
+#ip addr 10.0.4.x 255.255.255.252
+#no shutdown
+
+
+ * Sur AS1
+
+#int loopback 0
+#ip addr 10.0.0.1 255.255.255.0
+#no shutdown
+
+#int loopback 1
+#ip addr 10.0.1.1 255.255.255.0
+#no shutdown
+
+
+ * Sur AS3
+
+#int loopback 0
+#ip addr 10.0.2.1 255.255.255.0
+#no shutdown
+
+#int loopback 1
+#ip addr 10.0.3.1 255.255.255.0
+#no shutdown
+
+
+ * Vérifier conf IP
+
+#show running-config
+
+---
+BGP
+---
+
+ * BGP sur chaque AS
+
+#router bgp <AS_id>
+#neighbor <AS_IP_voisin> remote-as <AS_id_voisin>
+#network <IP_réseau> mask <masque_réseau>
+
+
+ * Vérifier BGP
+
+#show bgp summary
+
+----
+OSPF
+----
+
+router ospf 1
+network 10.0.4.8 0.0.0.3 area 0
+
+
+
+
+---
+FIN
+---
+
+* Pour sauvegarder état AS
+
+#wr
+
+
+
+ip prefix-list question2 permit 10.0.4.8/29
